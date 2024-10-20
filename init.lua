@@ -708,9 +708,9 @@ require('lazy').setup({
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
           -- Select the [n]ext item
-          ['<C-e>'] = cmp.mapping.select_next_item(),
+          ['<C-n>'] = cmp.mapping.select_next_item(),
           -- Select the [p]revious item
-          ['<C-i>'] = cmp.mapping.select_prev_item(),
+          ['<C-p>'] = cmp.mapping.select_prev_item(),
 
           -- Scroll the documentation window [b]ack / [f]orward
           ['<C-b>'] = cmp.mapping.scroll_docs(-4),
@@ -767,6 +767,23 @@ require('lazy').setup({
       }
     end,
   },
+  {
+    'miyakogi/conoline.vim',
+  },
+
+  {
+    'ecthelionvi/NeoColumn.nvim',
+    opts = {
+      always_on = true,
+      exclude_ft = { 'text', 'markdown' },
+      fg_color = '#FF0000',
+      bg_color = '#000000',
+      NeoColumn = { '80', '120' },
+    },
+    config = function(_, opts)
+      require('NeoColumn').setup(opts)
+    end,
+  },
 
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
@@ -811,12 +828,12 @@ require('lazy').setup({
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    -- require('lualine').setup {
     config = function()
       require('lualine').setup {
         options = {
           icons_enabled = true,
-          theme = 'auto',
+          -- theme = 'auto',
+          theme = 'wombat',
           component_separators = { left = '', right = '' },
           section_separators = { left = '', right = '' },
           disabled_filetypes = {
@@ -924,7 +941,8 @@ require('lazy').setup({
     },
   },
 })
-
 vim.cmd.colorscheme 'tender'
+vim.g.conoline_color_insert_nr_dark = 'ctermfg=red'
+vim.api.nvim_set_hl(0, 'ColorColumn', { ctermbg = 240, ctermfg = 252 })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
